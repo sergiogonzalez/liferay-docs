@@ -1,4 +1,3 @@
-
 # Liferay Frameworks
 
 This chapter provides you with a brief overview of several of the essential frameworks provided by Liferay to developers. A framework, in the context of an API, is a set of APIs and configuration that is designed for an specific purpose such as enhancing your applications with a permission system, with tags, with categories, comments, etc.
@@ -1063,6 +1062,8 @@ This chapter is a placeholder that provides a quick description to the main fram
 -   Custom fields: A portlet that uses custom fields will allow the end user to extend the fields of its data entries with custom ones defined by the end user. To see a list of data types in Liferay that support this functionality just go to the Control Panel &rarr; Custom Fields.
 
 -   Inline permissions Framework: Allows enhancing your SQL queries so that the database takes care of checking for view permissions. This is particularly useful when doing queries for data entries that could result in a large number of items (and thus checking of permissions afterward would be very inefficient) or when you want to implement pagination (which would not work fine if permissions are checked afterward and an item is removed). The Document Library or the Message Boards of Liferay are examples of portlets that use this functionality.
+
+-   Message Boards display style: You can add new display styles to Message Boards by defining the new display styles in message.boards.category.display.styles portal.property. Then, you need a hook to create your own jsp files based on your display style name. If your new display style name is 'question' then you would need to create the following jsp files: view_category_question.jsp and view_message_question.jsp. You can see the original files in view_category_default.jsp and view_message_default.jsp. 
 
 -	Faceted Search: A new API was introduced which allows for simple creation of new facet configurations and searches. This API uses a JSON based configuration to define the details of facets used for the search. To find out more, see the  [Faceted Search](http://www.liferay.com/community/wiki/-/wiki/1071674/Faceted+Search) wiki by Ray Aug&#233;)
 
