@@ -19,7 +19,7 @@
 <h3>My App Feature<h3>
 
 <%
-boolean companyMentionsEnabled = GetterUtil.getBoolean(request.getAttribute(MentionsWebKeys.COMPANY_MENTIONS_ENABLED));
+boolean companyMyAppFeatureEnabled = GetterUtil.getBoolean(request.getAttribute(MyAppWebKeys.COMPANY_MY_APP_FEATURE_ENABLED));
 %>
 
-<aui:input checked="<%= companyMentionsEnabled %>" label="My App Feature Enabled" name="settings--mentionsEnabled--" type="checkbox" value="<%= companyMentionsEnabled %>" />
+<aui:input checked="<%= companyMyAppFeatureEnabled %>" label="My App Feature Enabled" name="settings--myAppFeatureEnabled--" type="checkbox" value="<%= companyMyAppFeatureEnabled %>" />

@@ -43,11 +43,11 @@ public void include(
 	PortletPreferences companyPortletPreferences =
 		PrefsPropsUtil.getPreferences(themeDisplay.getCompanyId(), true);
 
-	boolean companyMentionsEnabled = PrefsParamUtil.getBoolean(
-		companyPortletPreferences, request, "mentionsEnabled", true);
+	boolean companyMyAppFeatureEnabled = PrefsParamUtil.getBoolean(
+		companyPortletPreferences, request, "myAppFeatureEnabled", true);
 
 	request.setAttribute(
-		MentionsWebKeys.COMPANY_MENTIONS_ENABLED, companyMentionsEnabled);
+		MyAppWebKeys.COMPANY_MY_APP_FEATURE_ENABLED, companyMyAppFeatureEnabled);
 
 	super.include(request, response);
 }
