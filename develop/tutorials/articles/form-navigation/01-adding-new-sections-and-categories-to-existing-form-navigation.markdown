@@ -20,8 +20,9 @@ existing list of navigation entries.
 
 This tutorial references source code from an example portlet called the Form Nav
 Extension portlet. You can find the code referenced by this tutorial in a
-complete project on Github here: TODO. You can also download the portlets bundle
-from here and experiment with it. 
+complete project on Github here: <https://github.com/jhinkey/liferay-docs/tree/pr256-form-navigator/develop/tutorials/code/liferay-plugins-sdk-7.0.0/portlets/form-nav-extension-portlet>.
+You can also download the portlet's bundle from the following link (click *View Raw* to download it):
+<https://github.com/jhinkey/liferay-docs/blob/pr256-form-navigator/develop/tutorials/code/liferay-plugins-sdk-7.0.0/osgi/modules/com.liferay.docs.formnavportlet.jar>
 
 To add a new section to an existing form navigation, follow these
 steps: 
@@ -78,10 +79,10 @@ steps:
     which each is to be added. The `FormNavigatorConstants.java` specifies
     Liferay Portal's category IDs. 
 
-    @Override
-    public String getCategoryKey() {
-        return FormNavigatorConstants.CATEGORY_KEY_COMPANY_SETTINGS_MISCELLANEOUS;
-    }
+        @Override
+        public String getCategoryKey() {
+            return FormNavigatorConstants.CATEGORY_KEY_COMPANY_SETTINGS_MISCELLANEOUS;
+        }
 
 4.  Implement a `getKey` method, if you haven't already done so in a base class,
     to return a key that uniquely identifies your entry within the form navigator. 
@@ -89,10 +90,10 @@ steps:
 5.  To map your entry class to your form, implement method `getJspPath` to return
     the path to your form's JSP. 
 
-    @Override
-    protected String getJspPath() {
-        return "/portal_settings/my_app.jsp";
-    }
+        @Override
+        protected String getJspPath() {
+            return "/portal_settings/my_app.jsp";
+        }
 
 6.  Your form navigation entry implementation needs to be registered in the OSGi
     registry so the form navigator tag can retrieve it.  To make sure your class
