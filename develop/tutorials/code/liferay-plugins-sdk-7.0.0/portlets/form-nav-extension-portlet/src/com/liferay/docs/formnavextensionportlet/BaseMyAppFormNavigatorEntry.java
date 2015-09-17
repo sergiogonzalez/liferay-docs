@@ -1,9 +1,15 @@
 package com.liferay.docs.formnavextensionportlet;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
+
+import javax.servlet.ServletContext;
+
+import org.osgi.service.component.annotations.Reference;
 
 import com.liferay.portal.kernel.servlet.taglib.ui.BaseJSPFormNavigatorEntry;
 import com.liferay.portal.kernel.servlet.taglib.ui.FormNavigatorEntry;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 public abstract class BaseMyAppFormNavigatorEntry
 	extends BaseJSPFormNavigatorEntry<Object>
@@ -11,12 +17,15 @@ public abstract class BaseMyAppFormNavigatorEntry
 
 	@Override
 	public String getKey() {
-		return "myApp";
+		return "my-app";
 	}
 
 	@Override
 	public String getLabel(Locale locale) {
-		return "My App";
+		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+				"content.Language", locale, getClass());
+
+			return resourceBundle.getString(getKey());
 	}
 
 }

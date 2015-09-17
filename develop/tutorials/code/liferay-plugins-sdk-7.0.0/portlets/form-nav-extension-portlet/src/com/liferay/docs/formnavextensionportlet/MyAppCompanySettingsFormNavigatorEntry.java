@@ -18,52 +18,48 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
 
 @Component(immediate = true, service = FormNavigatorEntry.class)
-public class MyAppCompanySettingsFormNavigatorEntry
-	extends BaseMyAppFormNavigatorEntry {
+public class MyAppCompanySettingsFormNavigatorEntry extends
+		BaseMyAppFormNavigatorEntry {
 
-@Override
-public String getCategoryKey() {
-	return FormNavigatorConstants.
-		CATEGORY_KEY_COMPANY_SETTINGS_MISCELLANEOUS;
-}
+	@Override
+	public String getCategoryKey() {
+		return FormNavigatorConstants.CATEGORY_KEY_COMPANY_SETTINGS_MISCELLANEOUS;
+	}
 
-@Override
-public String getFormNavigatorId() {
-	return FormNavigatorConstants.FORM_NAVIGATOR_ID_COMPANY_SETTINGS;
-}
+	@Override
+	public String getFormNavigatorId() {
+		return FormNavigatorConstants.FORM_NAVIGATOR_ID_COMPANY_SETTINGS;
+	}
 
-@Override
-public void include(
-		HttpServletRequest request, HttpServletResponse response)
-	throws IOException {
+	@Override
+	protected String getJspPath() {
+		return "/portal_settings/my_app.jsp";
+	}
 
-	ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-		WebKeys.THEME_DISPLAY);
+	@Override
+	public void include(HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
 
-	PortletPreferences companyPortletPreferences =
-		PrefsPropsUtil.getPreferences(themeDisplay.getCompanyId(), true);
+		ThemeDisplay themeDisplay = (ThemeDisplay) request
+				.getAttribute(WebKeys.THEME_DISPLAY);
 
-	boolean companyMyAppFeatureEnabled = PrefsParamUtil.getBoolean(
-		companyPortletPreferences, request, "myAppFeatureEnabled", true);
+		PortletPreferences companyPortletPreferences = PrefsPropsUtil
+				.getPreferences(themeDisplay.getCompanyId(), true);
 
-	request.setAttribute(
-		MyAppWebKeys.COMPANY_MY_APP_FEATURE_ENABLED, companyMyAppFeatureEnabled);
+		boolean companyMyAppFeatureEnabled = PrefsParamUtil
+				.getBoolean(companyPortletPreferences, request,
+						"myAppFeatureEnabled", true);
 
-	super.include(request, response);
-}
+		request.setAttribute(MyAppWebKeys.COMPANY_MY_APP_FEATURE_ENABLED,
+				companyMyAppFeatureEnabled);
 
-@Override
-@Reference(
-	target = "(osgi.web.symbolicname=com.liferay.docs.formnavextensionportlet)",
-	unbind = "-"
-)
-public void setServletContext(ServletContext servletContext) {
-	super.setServletContext(servletContext);
-}
+		super.include(request, response);
+	}
 
-@Override
-protected String getJspPath() {
-	return "/portal_settings/my_app.jsp";
-}
+	@Override
+	@Reference(target = "(osgi.web.symbolicname=com.liferay.docs.formnavportlet)", unbind = "-")
+	public void setServletContext(ServletContext servletContext) {
+		super.setServletContext(servletContext);
+	}
 
 }
