@@ -1,4 +1,4 @@
-# Form Navigation
+# Form Navigation [](id=form-navigation)
 
 Liferay's Form Navigation framework helps you split big forms into smaller forms
 called sections. Its `form-navigator` tag creates a navigation UI across these
