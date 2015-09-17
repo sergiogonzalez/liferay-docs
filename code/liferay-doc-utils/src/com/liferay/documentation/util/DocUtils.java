@@ -12,7 +12,7 @@ public class DocUtils {
 		String command = args[0];
 		System.out.println(command);
 		if (args[0] == null) {
-			System.out.println("Please specify an argument: NumberImages, ResetImages, AddMarkdownMetadata (deprecated), or AddMarkdownChTemplate");
+			System.out.println("Please specify an argument: NumberImages, ResetImages, StripHeaderIds, AddMarkdownMetadata (deprecated), AddMarkdownChTemplate, or AddIndex");
 		} 
 		else {
 			if (command.equalsIgnoreCase("NumberImages")) {
@@ -33,6 +33,24 @@ public class DocUtils {
 					} catch (IOException e) {
 						System.out.println("IOException: " + e.getMessage());
 					}
+				}
+			}
+			else if (command.equalsIgnoreCase("StripHeaderIds")) {
+				String markdownFilePath = args[1];
+				if (markdownFilePath != null) {
+					try {
+						StripHeaderIds.stripHeaderIds(markdownFilePath);
+					} catch (IOException e) {
+						System.out.println("IOException: " + e.getMessage());
+					}
+				}
+			}
+			else if (command.equalsIgnoreCase("AddIndex")) {
+				String texFilePath = args[1];
+				String lexiconFilePath = args[2];
+				String indexedTexFilePath = args[3];
+				if (texFilePath != null && lexiconFilePath != null) {
+					AddIndex.addIndex(texFilePath, lexiconFilePath, indexedTexFilePath);
 				}
 			}
 			else if (command.equalsIgnoreCase("AddMarkdownMetadata")) {
@@ -59,7 +77,7 @@ public class DocUtils {
 				}
 			}
 			else {
-				System.out.println("You entered an invalid argument. Please try again. You can use NumberImages, ResetImages, AddMarkdownMetadata(deprecated), or AddMarkdownChTemplate");
+				System.out.println("You entered an invalid argument. Please try again. You can use NumberImages, ResetImages, AddIndex, AddMarkdownMetadata(deprecated), or AddMarkdownChTemplate");
 			}
 			
 		}
