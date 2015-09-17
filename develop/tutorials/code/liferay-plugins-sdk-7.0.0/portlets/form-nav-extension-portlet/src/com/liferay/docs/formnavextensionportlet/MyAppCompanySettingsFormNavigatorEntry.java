@@ -1,6 +1,8 @@
 package com.liferay.docs.formnavextensionportlet;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.portlet.PortletPreferences;
 import javax.servlet.ServletContext;
@@ -10,16 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.servlet.taglib.ui.BaseJSPFormNavigatorEntry;
 import com.liferay.portal.kernel.servlet.taglib.ui.FormNavigatorConstants;
 import com.liferay.portal.kernel.servlet.taglib.ui.FormNavigatorEntry;
 import com.liferay.portal.kernel.util.PrefsParamUtil;
 import com.liferay.portal.kernel.util.PrefsPropsUtil;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
 
-@Component(immediate = true, service = FormNavigatorEntry.class)
-public class MyAppCompanySettingsFormNavigatorEntry extends
-		BaseMyAppFormNavigatorEntry {
+@Component(immediate = true, property = {"service.ranking:Integer=25"},
+	service = FormNavigatorEntry.class)
+public class MyAppCompanySettingsFormNavigatorEntry 
+	extends BaseJSPFormNavigatorEntry<Object>
+		implements FormNavigatorEntry<Object> {
 
 	@Override
 	public String getCategoryKey() {
@@ -34,6 +41,16 @@ public class MyAppCompanySettingsFormNavigatorEntry extends
 	@Override
 	protected String getJspPath() {
 		return "/portal_settings/my_app.jsp";
+	}
+
+	@Override
+	public String getKey() {
+		return "my-app";
+	}
+
+	@Override
+	public String getLabel(Locale locale) {
+		return LanguageUtil.get(locale, getKey());
 	}
 
 	@Override
