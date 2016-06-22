@@ -2,6 +2,10 @@ package com.liferay.documentation.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
@@ -10,53 +14,79 @@ public class NumberImagesTaskDevSite extends Task {
 	
 	@Override
 	public void execute() throws BuildException {
+		
+String productType = _productType;
 
-		File articlesDir = new File("articles");
-		System.out.println("Numbering images for files in "
-				+ articlesDir.getPath() + " ...");
+		List<String> dirTypes = new ArrayList<String>();
+		dirTypes.add("");
 
-		if (!articlesDir.exists() || !articlesDir.isDirectory()) {
-			throw new BuildException("FAILURE - bad chapters directory " + articlesDir);
+		if (productType.equals("dxp")) {
+			dirTypes.add("-dxp");
 		}
-		
-		File[] articlesDirContents = articlesDir.listFiles();
-		
-		for (File subDir : articlesDirContents) {
 
-			// Get listing of markdown files
-			if (subDir.isDirectory()) {
-				String[] files = subDir.list();
-		
-				if (files == null || files.length == 0) {
-					throw new BuildException("FAILURE - no markdown files found in " + subDir.getAbsolutePath());
-				}
-		
-				// Process each file
-				for (int i = 0; i < files.length; i++) {
-					String filename = files[i];
-					
-					if (!filename.endsWith(".markdown")) {
-						continue;
+		for (String dirType : dirTypes) {
+
+			File docDir = new File("../" + _docDir);
+			File articleDir = new File(docDir.getAbsolutePath() + "/articles" + dirType);
+			System.out.println("Numbering images for files in "
+					+ articleDir.getPath() + " ...");
+
+			if (!articleDir.exists() || !articleDir.isDirectory()) {
+				throw new BuildException("FAILURE - bad chapters directory " + articleDir);
+			}
+
+			File[] articleDirFiles = articleDir.listFiles();
+			List<File> articles = new ArrayList<File>();
+
+			Queue<File> q = new LinkedList<File>();
+			for (File f : articleDirFiles) {
+				q.add(f);
+			}
+
+			while (!q.isEmpty()) {
+				File f = q.remove(); 
+
+				if (f.isDirectory()) {
+					File[] files = f.listFiles();
+
+					for (File file : files) {
+						q.add(file);
 					}
-					
-					String filepath = subDir.getAbsolutePath() + "/" + filename;
-					
-					try {
-						ResetImagesDevSite.resetImages(filepath);
-						NumberImagesDevSite.numberImages(filepath);
-					} catch (IOException e) {
-						throw new BuildException(e.getLocalizedMessage());
+				}
+				else {
+					if (f.getName().endsWith(".markdown")) {
+						articles.add(f);
 					}
 				}
 			}
-		
+
+
+			if (articles.isEmpty()) {
+				throw new BuildException("FAILURE - no markdown files found in " + articleDir.getAbsolutePath());
+			}
+
+			for (File article : articles) {
+				String articlePath = article.getAbsolutePath();
+
+				try {
+					ResetImagesDiscover.resetImages(articlePath);
+					NumberImagesDiscover.numberImages(articlePath);
+				}
+				catch (IOException ie) {
+					throw new BuildException(ie.getLocalizedMessage());
+				}
+			}
 		}
 	}
 
 	public void setDocDir(String docDir) {
-		this.docDir = docDir;
+		_docDir = docDir;
 	}
 
-	private String docDir;
+	public void setProductType(String productType) {
+		_productType = productType;
+	}
 
+	private String _docDir;
+	private String _productType;
 }
