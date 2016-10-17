@@ -28,32 +28,9 @@ our documentation for the web, for ebooks, and for print.
 
 ## Markdown Environment
 
-At the moment, we're using Pandoc, because it supports the Markdown extensions
-we need. Pandoc is also cross-platform, so it can be run on all three
-environments (Linux, Mac, and Windows) that we use.
-
-For liferay.com, we use Pegdown with our own, customized parser. We may
-introduce that parser to this project in the future, and then you won't have to
-go through the Pandoc install process described below. 
-
-### Installing Pandoc 
-
-Pandoc is fairly easy to install, provided you can get the Haskell environment
-installed on your machine. You can generally get this from
-[here](http://hackage.haskell.org/platform). 
-
-
-On (K)ubuntu 11.10 and up, the Pandoc package works fine. On other operating
-systems, an installer is provided for Haskell, and from there, the procedure is
-the same for all operating systems. 
-
-
-Once Haskell is installed, you can use the `cabal` tool according to the Pandoc
-[install instructions](http://johnmacfarlane.net/pandoc/installing.html). Once
-Pandoc is installed, add it to your path. This can be done by adding the
-directory `$HOME/.cabal/bin` to your `.profile` or `.bashrc` file.
-
-Next, you need an editor for Markdown files. 
+For liferay.com, we use Pegdown with our own, customized parser, which is
+included in this project. You can use this with our `convert.sh` script in the
+`bin` folder to preview your articles. 
 
 ### Editing Markdown Files
 
@@ -62,13 +39,12 @@ This is not an attempt to break that relationship in any way: Markdown is plain
 text, and you should use whatever tool makes you most effective. One of the
 reasons we chose it is to allow writers to use whatever tools they want. 
 
-
-For those who are looking for some guidance on a tool to use, I (RS) use jEdit.
-It's a great cross-platform text editor which is highly extensible. Though it's
-written in Java, it can be configured to start in the background when your
-machine starts, which makes it pop up as fast as any native editor. This makes
-it ideal regardless of which platform (Linux, Windows, or Mac) you use. 
-
+For those who are looking for some guidance on a good tool to use, you can use
+jEdit. It's a great cross-platform text editor which is highly extensible.
+Though it's written in Java, it can be configured to start in the background
+when your machine starts, which makes it pop up as fast as any native editor.
+This makes it ideal regardless of which platform (Linux, Windows, or Mac) you
+use. 
 
 For Markdown, jEdit has a Markdown plugin that can render a Markdown document
 into HTML, and there's also a syntax highlighting mode file that you can
@@ -87,14 +63,12 @@ the <MODES> tags:
 Save the file and restart jEdit. While editing, you now have syntax highlighting
 and can preview Markdown files in HTML using the plugin.
 
-
 If you're going to be doing diffing and merging using jEdit's jdiff plugin,
 you'll also need to set the width to be narrower than the 120 character default
 provided by the Markdown mode file. To do this, go to *Utilities* -> *Global
 Options* -> *Editing*. Under *Change Settings for Mode*, select *Markdown*, and
 then change the *Wrap Margin* to 80. Of course, make sure also that *Word Wrap*
 is set to *Soft*. 
-
 
 Now you've got a great environment for editing Markdown files. 
 
@@ -170,6 +144,14 @@ Liferay.com. Then, remove the newer header ID from the other header and run ...
 Below are some tips for some constructs that are unique to Liferay
 documentation. 
 
+### Spaces vs. Tabs
+
+Our standard is the opposite of Liferay's code: we use spaces instead of tabs.
+Why? Because lists and code blocks in Markdown are much easier to control using
+spaces instead of tabs. Please see the documentation for Markdown for further
+information on this, or we provide a good example of it when we talk about lists
+below. 
+
 ### Figures 
 
 Previously, Open/LibreOffice added the words: *Illustration #* to captions when
@@ -188,6 +170,30 @@ This causes Pandoc to create the following, easily styled markup:
 	</div>
 	
 We've duplicated this behavior in the Pegdown parser that we've implemented. 
+
+### Inline Images / Icon Images
+
+An icon's image helps the reader identify the icon in the UI. To use an existing
+icon snapshot, check a document's `images/` folder for files ending in *-icon.png*.
+Follow these steps
+to include an icon image inline in your article's Markdown text:
+
+1. Take a snapshot of the icon, if one doesn't already exist in the document's
+`images/` folder. Please save the snapshot to the `images/` folder and end its name with
+`-icon.png`. 
+2. Crop the image to remove unrelated content from around the icon.
+3. Resize the image's height to no greater than 20 pixels. **Important:** Make sure to keep the
+aspect ratio. 
+4. In the Markdown text, include the icon image in parentheses.
+
+Inline icon image example Markdown:
+
+    Click the *Add Blog Entry* icon (![Add Blog Entry](../../images/add-icon.png))
+    to bring up the blog entry editor.
+
+Result shown in a Knowledge Base article:
+
+![Inline icon image](images/render-icon-image-inline.png)
 
 ### Right Arrows 
 
@@ -592,5 +598,4 @@ missing IDs or have conflicting IDs.
 
 ## Contact Information 
 
-* Jim Hinkey (jhinkey) - Dev Guide
-* Rich Sezov (sez11a) - All other guides
+Rich Sezov (sez11a), Jim Hinkey (jhinkey)
