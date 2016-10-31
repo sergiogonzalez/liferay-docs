@@ -170,6 +170,14 @@ Liferay.com. Then, remove the newer header ID from the other header and run ...
 Below are some tips for some constructs that are unique to Liferay
 documentation. 
 
+### Spaces vs. Tabs
+
+Our standard is the opposite of Liferay's code: we use spaces instead of tabs.
+Why? Because lists and code blocks in Markdown are much easier to control using
+spaces instead of tabs. Please see the documentation for Markdown for further
+information on this, or we provide a good example of it when we talk about lists
+below. 
+
 ### Figures 
 
 Previously, Open/LibreOffice added the words: *Illustration #* to captions when
@@ -188,6 +196,30 @@ This causes Pandoc to create the following, easily styled markup:
 	</div>
 	
 We've duplicated this behavior in the Pegdown parser that we've implemented. 
+
+### Inline Images / Icon Images
+
+An icon's image helps the reader identify the icon in the UI. To use an existing
+icon snapshot, check a document's `images/` folder for files ending in *-icon.png*.
+Follow these steps
+to include an icon image inline in your article's Markdown text:
+
+1. Take a snapshot of the icon, if one doesn't already exist in the document's
+`images/` folder. Please save the snapshot to the `images/` folder and end its name with
+`-icon.png`. 
+2. Crop the image to remove unrelated content from around the icon.
+3. Resize the image's height to no greater than 20 pixels. **Important:** Make sure to keep the
+aspect ratio. 
+4. In the Markdown text, include the icon image in parentheses.
+
+Inline icon image example Markdown:
+
+    Click the *Add Blog Entry* icon (![Add Blog Entry](../../images/add-icon.png))
+    to bring up the blog entry editor.
+
+Result shown in a Knowledge Base article:
+
+![Inline icon image](images/render-icon-image-inline.png)
 
 ### Right Arrows 
 
